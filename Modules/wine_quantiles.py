@@ -25,7 +25,7 @@ def assign_quant_bin(dataframe, col, data_type=None):
     
 def assign_even_bin(dataframe, col):
     cut_points = np.linspace(start=dataframe[col].min(), stop=dataframe[col].max(), num=5 + 1)
-    labels = ['0', '1', '2', '3', '4']
+    labels = ['1', '2', '3', '4', '5']
     dataframe.loc[:, col] = pd.cut(dataframe[col], cut_points, labels=labels, include_lowest=True)
     return dataframe
 
