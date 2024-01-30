@@ -4,10 +4,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 import numpy as np
 import pickle
-
-# SAMPLE 236       3.5     3.5          4       2.5        red
-# SAMPLE 235         3       3          4         2        red
-# SAMPLE 233         3       2          3         3        red
+import streamlit as st
+import pymysql
 
 """
 This module contains the recommender system for the wine based off of a euclidian K-nearest-neighbors algorithm with cosine-similarity used to add variety to the recommendations. 
@@ -23,29 +21,44 @@ def set_up_knn(neighbors=5):
     Returns:
         knn (sklearn.neighbors.NearestNeighbors) : A knn model for recommendation gathering.
     """
-    # scalar = StandardScaler()
-    wines = pd.read_csv('/Users/nick/Documents/GitHub/spingle-dingle/feature_data.csv') # change later
-    wines['type'] = wines['type'].apply(lambda x : 0 if x=='red' else 1) # dummy code variables
-    wines.drop(columns=["Unnamed: 0"], inplace=True)
-    # wines_scaled=scalar.fit_transform(wines) # Apply a scalar so that mean and std get normalized
+    wines = pd.read_csv('/Users/nick/Documents/GitHub/spingle-dingle/data/final_wine_data.csv') # change later
+    wines['type_'] = wines['type_'].apply(lambda x : 0 if x=='red' else 1) # dummy code variables
+    wines.drop(columns=["Unnamed: 0", "name_", "wine_index", "alcohol"], inplace=True)
     knn = NearestNeighbors(n_neighbors=neighbors, metric='euclidean')
     knn.fit(wines)
-    return knn, wines
+    return knn
 
 def make_request():
-    knn, wines = set_up_knn()
-    feature_vectors = knn._fit_X 
+    # # set_up_knn()
+    # knn = set_up_knn()
 
-    print(feature_vectors)
-    # with open('/Users/nick/Documents/GitHub/spingle-dingle/data/knn_vectors.pk1', 'wb') as f:
-    #     pickle.dump((feature_vectors), f)
 
-    # _, indices = knn.kneighbors([[0, 6, 1, 4, 4, 0, 3]])
-    # recommended_wines = wines.iloc[indices[0]]  # Use indices to retrieve wines
-    # print(recommended_wines)
-    # request_catalogue = lambda user_info : knn.kneighbors(user_info)
-    # distance, indices = request_catalogue(user_info=[[0, 6, 1, 4, 4, 0, 3]])
-    # similarity_mat = cosine_similarity(wines)
+    # # Its important to use binary mode 
+    # knnPickle = open('/Users/nick/Documents/GitHub/spingle-dingle/data/knnpickle_file', 'wb') 
+        
+    # # source, destination 
+    # pickle.dump(knn, knnPickle)  
 
-    # now to figure out how to get a variety of cosine values, maybe use binning on the similarity vectors? 
+    # # close the file
+    # knnPickle.close()
 
+    knn = pickle.load(open('/Users/nick/Documents/GitHub/spingle-dingle/data/knnpickle_file', 'rb'))
+
+    _, indices_to_select = knn.kneighbors([[0, 6, 1, 4, 4, 0, 3]])
+    print(indices_to_select)
+    # index_str = ', '.join(map(str, indices_to_select[0]))
+
+    # def init_connection():
+    #     return pymysql.connect(**st.secrets["singlestore"])
+
+    # print(index_str)
+    # conn = init_connection()
+
+    # def run_query(query):
+    #     with conn.cursor() as cur:
+    #         cur.execute(query)
+    #         return cur.fetchall()
+    # rows = run_query(f"SELECT * FROM wine_info WHERE wine_index IN ({index_str});")
+    # unwrapped_list = [item for item in rows]
+
+make_request()
