@@ -68,7 +68,7 @@ def apply_normalization_techniques(maindata, feature, kind):
     Args:
         maindata (pd.DataFrame) : A dataframe containing the feature.
         feature (str) : The feature name for outlier removal.    
-        kind (str) : A method for normalization, either min-max, z-score   
+        kind (str) : A method for normalization, either min-max, z-score or robust.
 
     Returns:
         data (pd.DataFrame) : Data with an applied normalization technique on a feature.
@@ -78,10 +78,6 @@ def apply_normalization_techniques(maindata, feature, kind):
         maximum = data[feature].max()
         minimum = data[feature].min()
         data[feature] = (data[feature] - minimum) / (maximum - minimum)
-    elif kind == "log":
-        data[feature] = np.log(data[feature])
-    elif kind == "inv-log":
-        data[feature] = np.exp(data[feature])
     elif kind == "robust":
         median = data[feature].median()
         quantile_1 = data[feature].quantile(0.25)
