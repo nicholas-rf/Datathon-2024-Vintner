@@ -5,7 +5,7 @@ import numpy as np
 This module contains methods for binning variables via their quantiles in order to assign numbers 0-4 for wines.
 """
 
-def assign_even_quant(dataframe, col, data_type=None):
+def assign_quant_bin(dataframe, col, data_type=None):
     """
     Takes a dataset and uses numpy.quantile to create quantiles for binning.
 
@@ -23,10 +23,10 @@ def assign_even_quant(dataframe, col, data_type=None):
     quants =  [np.quantile(dataframe[col], i/10) for i in range(2,10,2)]
     return quants
     
-def assign_freq_quant(dataframe, col):
+def assign_even_bin(dataframe, col):
     cut_points = np.linspace(start=dataframe[col].min(), stop=dataframe[col].max(), num=5 + 1)
-    labels = ['0', '1', '2', '3', '4']
-    dataframe[col] = pd.cut(dataframe[col], cut_points, labels=labels, include_lowest=True)
+    labels = ['1', '2', '3', '4', '5']
+    dataframe.loc[:, col] = pd.cut(dataframe[col], cut_points, labels=labels, include_lowest=True)
     return dataframe
 
 
