@@ -6,7 +6,6 @@ This project requires the following libraries to be installed: streamlit, pandas
 All data that is used within files can bef found in the data folder.
 
 To run the web app:
-Reach out to me at nroze-freitas@ucsb.edu so I can activate the singlestore workspace.
 Update the filepath in the streamlit_app_1.py to the locally stored version of the k-nn model called knnpickle_file in Data. Then move the .steamlit folder into the users folder, then cd into the streamlit folder, and call 'streamlit run streamlit_app_1.py' in the console.
 
 If web app does not work:
