@@ -1,4 +1,4 @@
-Vintner is a project done for the UCSB 2024 Datathon which focuses on utilizing the chemical properties of the red-wine-quality dataset to provide more scientific wine recommendations based on a users preferences. The main report containing all information can be found in 
+Vintner is the winner of the UCSB 2024 Datathon which focuses on utilizing the chemical properties of the red-wine-quality dataset to provide more scientific wine recommendations based on a users preferences. The main report containing all information can be found in 
 '../SingleStore Notebooks/Report_Wine_Qualities.ipynb'.
 
 This project requires the following libraries to be installed: streamlit, pandas, tensorflow, beautifulsoup4, requests, numpy, scikit-learn, sqlalchemy, OpenAI, and pymysql.
