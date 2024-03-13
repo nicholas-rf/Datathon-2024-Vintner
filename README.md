@@ -6,6 +6,4 @@ This project requires the following libraries to be installed: streamlit, pandas
 All data that is used within files can bef found in the data folder.
 
 To run the web app:
-Update the filepath in the streamlit_app_1.py to the locally stored version of the k-nn model called knnpickle_file in Data. Then move the .steamlit folder into the users folder, then cd into the streamlit folder, and call 'streamlit run streamlit_app_1.py' in the console.
-
-Web app is currently not able to run as the single store database needs to be active.
+Update the filepath in the streamlit_app_1.py to the locally stored version of the k-nn model called knnpickle_file in Data. Then move the .steamlit folder into the users folder, then cd into the streamlit folder, and call 'streamlit run streamlit_app_1.py' in the console. Please note however that the web-app will have limited functionality since the database storing wine data is inactive. 
